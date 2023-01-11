@@ -29,6 +29,36 @@ Route::namespace('App\Http\Controllers')->group(function() {
         Route::get('logout','AuthController@logout')->name('logout');
         Route::get('forget-password','AuthController@forget_password');
         Route::post('forget-password','AuthController@forget_pass');
-    // });
+    });
+
+    Route::namespace('App\Http\Controllers')->group(function() {
     
-});
+        Route::post('hire','AuthController@hire');
+        Route::post('hire','AuthController@hire');
+        Route::post('standup','AuthController@standup');
+        Route::post('wellbeing','AuthController@wellbeing');
+        Route::post('billings','AuthController@hire');
+        Route::post('support','AuthController@support');
+        Route::post('tour','AuthController@tour');
+    
+    });
+    Route::namespace('App\Http\Controllers')->group(function() {
+        
+        Route::get('notification','CompanyController@notifications');
+        Route::get('profile','CompanyController@profiles');
+        Route::get('setting','CompanyController@settings');
+        Route::get('dashboard','CompanyController@dashboards');
+        Route::get('hire','CompanyController@hires');
+        Route::get('hiring-history','CompanyController@hiring_history');
+        Route::get('talent','CompanyController@talents');
+        Route::get('talents-profile','CompanyController@talents_profile');
+        Route::get('standup','CompanyController@standups');
+        Route::get('standup-update','CompanyController@standup_update');
+        Route::get('wellbeing','CompanyController@wellbeings');
+        Route::get('billing','CompanyController@billings');
+        Route::get('billings-view-pool','CompanyController@billings_view_pool');
+        Route::get('support','CompanyController@supports');
+        Route::get('tour','CompanyController@tours');
+    
+    });
+// });

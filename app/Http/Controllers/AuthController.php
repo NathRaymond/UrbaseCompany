@@ -49,12 +49,12 @@ class AuthController extends Controller
             $token = $returnedData['0']['token']['original']['access_token'];
             // $talent = $returnedData['0']['workReady']['talent_id'];
             session(['token' => $token]);
-            session(['talent' => $talent]);
-            $data['user'] = $returnedData['0']['token']['original']['talent'];
-            $data['biodata'] = $returnedData['0']['biodata'];
+            // session(['talent' => $talent]);
+            $data['user'] = $returnedData['0']['token']['original'];
+            // $data['biodata'] = $returnedData['0']['biodata'];
             session(['user' => $data['user']]);
-            session(['biodata' => $data['biodata']]);
-            return redirect()->route('dashboard');
+            // session(['biodata' => $data['biodata']]);
+            return redirect()->route('dashboards');
         }
     }
 
@@ -134,5 +134,4 @@ class AuthController extends Controller
   
       return redirect('/');
     }
-
 }

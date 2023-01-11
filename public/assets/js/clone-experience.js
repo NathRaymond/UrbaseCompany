@@ -1,0 +1,15 @@
+$('.add').click(function () {
+    $('#receiver').append('<div id="test" class="stack-experience-container py-3 d-flex justify-content-center flex-column mb-4 px-3"><div class="d-flex justify-content-between align-items-center mb-2"><div class="col-md-2 d-flex justify-content-between"><img src="../vetting/assets/img/stack-figma-pill.png" alt="" class="stack-pill-img"><p class="fw-semibold">Figma</p></div><div class="col-md-2 d-flex justify-content-between"><iconify-icon role="button" icon="akar-icons:copy" class="clone fs-3 stack-icon"></iconify-icon><iconify-icon icon="iconoir:cancel" role="button" class="remove fs-3 stack-icon"></iconify-icon></div></div><div class="d-flex"><div class="position-relative col-md-3 experience-level-parent" id=""><iconify-icon icon="ep:arrow-down-bold" class="position-absolute experience-level-select-down-arrow"></iconify-icon><select name="" id="" class="experience-level-select fw-bold"><option value="">Junior level</option><option value="" Selected>Seniority level</option><option value="">Intermediate</option></select></div><div class="col-md-1 col-1"></div><div class="position-relative col-md-3" id=""><input type="number" class="experience-level-input" placeholder="Enter No of Talents" /></div><div class="col-1"></div><div class="position-relative col-md-3" id=""><input type="text" class="experience-level-input" placeholder="Enter Role" /></div></div><div class="d-flex"><div class= "position-relative col-md-3 experience-level-parent" id = ""><iconify-icon icon="ep:arrow-down-bold" class="position-absolute experience-level-select-down-arrow"></iconify-icon><select name="" id="" class="experience-level-select fw-bold"><option value="" Selected>Hiring Needs</option><option value="">Seniority level</option><option value="">Intermediate</option></select></div ><div class="col-1"></div><div class="position-relative col-md-3 experience-level-parent" id=""><iconify-icon icon="ep:arrow-down-bold" class="position-absolute experience-level-select-down-arrow"></iconify-icon><select name="" id="" class="experience-level-select fw-bold"><option value="" Selected>Start Date</option><option value="">Intermediate</option></select></div><div class="col-1"></div><div class="position-relative col-md-3 experience-level-parent" id=""><iconify-icon icon="ep:arrow-down-bold" class="position-absolute experience-level-select-down-arrow"></iconify-icon><select name="" id="" class="experience-level-select fw-bold"><option value="" Selected>Salary Range</option><option value="">Seniority level</option><option value="">Intermediate</option></select></div></div ></div > ');
+    $('.clone').click(function () {
+        $('#test').clone().appendTo($('#receiver'));
+    });
+
+});
+
+$('.clone').click(function () {
+    $('#test').clone().appendTo($('#receiver'));
+});
+
+$(document).on('click', '.remove', function () {
+    $(this).parentsUntil('.stack-experience-scroll').remove();
+});
