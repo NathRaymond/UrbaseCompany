@@ -60,5 +60,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
     </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url('https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js') }}"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+    </script>
+    <script>
+        @if ($errors->any())
+            //Swal.fire('Oops...', "{!! implode('', $errors->all('<p>:message</p>')) !!}", 'error')
+            Swal.fire("{!! implode('', $errors->all('<p>:message</p>')) !!}")
+        @endif
+
+        @if (session()->has('message'))
+            Swal.fire(
+                'Success!',
+                "{{ session()->get('message') }}",
+                'success'
+            )
+        @endif
+        @if (session()->has('success'))
+            Swal.fire(
+                'Success!',
+                "{{ session()->get('success') }}",
+                'success'
+            )
+        @endif
+    </script>
+    <script>
+        function showloader() {
+            var loader = document.getElementById('thisLoader');
+            loader.style.display = "inline-block";
+        }
+    </script>
 </body>
 </html>

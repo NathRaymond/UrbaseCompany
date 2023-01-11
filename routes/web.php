@@ -24,11 +24,11 @@ Route::namespace('App\Http\Controllers')->group(function() {
     Route::post('verify_otp','AuthController@verifyOtp');
 });
 
-Route::group(['middleware' => 'authcheck'], function() {
+// Route::group(['middleware' => 'authcheck'], function() {
     Route::namespace('App\Http\Controllers\Auth')->group(function() {
-        Route::get('logout','AuthController@logout');
+        Route::get('logout','AuthController@logout')->name('logout');
         Route::get('forget-password','AuthController@forget_password');
         Route::post('forget-password','AuthController@forget_pass');
-    });
+    // });
     
 });

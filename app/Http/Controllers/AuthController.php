@@ -1,9 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
-
-use App\Http\Controllers\Controller;
-
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +13,7 @@ use App\Library\IpAddress;
 
 class AuthController extends Controller
 {
-     public function index(){
+    public function index(){
         return view('welcome');
     }
 
@@ -40,7 +37,7 @@ class AuthController extends Controller
             'ipaddress'=>$request->ip()
         ]);  
         $returnedData = $response->json();
-        // dd($response->json());
+        // dd($response->json(),$response->object());
         if($returnedData == null){
             session(['email' => $request->email]);
             return redirect()->route('verify');
@@ -50,7 +47,7 @@ class AuthController extends Controller
         }
         else{
             $token = $returnedData['0']['token']['original']['access_token'];
-            $talent = $returnedData['0']['workReady']['talent_id'];
+            // $talent = $returnedData['0']['workReady']['talent_id'];
             session(['token' => $token]);
             session(['talent' => $talent]);
             $data['user'] = $returnedData['0']['token']['original']['talent'];
@@ -80,7 +77,7 @@ class AuthController extends Controller
             'deleted'=>0,
         ]);
         $returnedData = $response->json();
-        // dd($response->json());
+        // dd($response->json(),$response->object());
         if ($response->json()['statusCode'] == 400){
             return redirect()->back()->withErrors([$response->json()['error']]);
         }
@@ -101,7 +98,8 @@ class AuthController extends Controller
         $start = $response->json();
         // dd($response->json(),$response->object());
         if($start['statusCode'] == 200){
-            return redirect('/logout');
+            return redirect()->route('logout')
+            ->with('success', $start['success']);
         }else{
             return redirect()->back()->withErrors([$start['error']]);
         }
