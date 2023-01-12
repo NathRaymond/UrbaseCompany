@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::auth();
 Route::namespace('App\Http\Controllers')->group(function() {
     Route::get('/','AuthController@index');
-    Route::post('login','AuthController@login'); // Logic For Login
+    Route::post('loginpage','AuthController@loginpage'); // Logic For Login
     Route::get('register','AuthController@register');
     Route::post('reg','AuthController@reg'); // Logic For Registration
     Route::get('verify','AuthController@verify')->name('verify');
@@ -25,8 +25,9 @@ Route::namespace('App\Http\Controllers')->group(function() {
 });
 
 // Route::group(['middleware' => 'authcheck'], function() {
-    Route::namespace('App\Http\Controllers\Auth')->group(function() {
+    Route::namespace('App\Http\Controllers')->group(function() {
         Route::get('logout','AuthController@logout')->name('logout');
+        Route::get('login','AuthController@login')->name('login');
         Route::get('forget-password','AuthController@forget_password');
         Route::post('forget-password','AuthController@forget_pass');
     });
@@ -42,12 +43,8 @@ Route::namespace('App\Http\Controllers')->group(function() {
         Route::post('tour','AuthController@tour');
     
     });
+
     Route::namespace('App\Http\Controllers')->group(function() {
-        
-        Route::get('notification','CompanyController@notifications');
-        Route::get('profile','CompanyController@profiles');
-        Route::get('setting','CompanyController@settings');
-        Route::get('dashboard','CompanyController@dashboards');
         Route::get('hire','CompanyController@hires');
         Route::get('hiring-history','CompanyController@hiring_history');
         Route::get('talent','CompanyController@talents');
@@ -59,6 +56,15 @@ Route::namespace('App\Http\Controllers')->group(function() {
         Route::get('billings-view-pool','CompanyController@billings_view_pool');
         Route::get('support','CompanyController@supports');
         Route::get('tour','CompanyController@tours');
+    
+    });
+
+    Route::namespace('App\Http\Controllers')->group(function() {
+        
+        Route::get('notification','DashboardController@notifications');
+        Route::get('profile','DashboardController@profiles');
+        Route::get('setting','DashboardController@settings');
+        Route::get('dashboard','DashboardController@dashboard')->name('dashboard');
     
     });
 // });

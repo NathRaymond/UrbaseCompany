@@ -6,22 +6,6 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function dashboards(){
-        return view('company.company-dashboard');
-    }
-
-    public function profiles(){
-        return view('company.profile');
-    }
-
-    public function settings(){
-        return view('company.profile');
-    }
-
-    public function notifications(){
-        return view('company.notification');
-    }
-
     public function hires(){
         return view('company.hire');
     }

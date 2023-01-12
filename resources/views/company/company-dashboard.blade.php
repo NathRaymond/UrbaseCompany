@@ -19,7 +19,7 @@
                 <div class="dashboard-welcome-container w-100 row mx-0" id="company-dashboard-welcome-container">
                     <div class="col-lg-7 dashboard-welcome-content  p-4 ">
                         <h1 class="p-0 m-0 fw-semibold company-dashboard-welcome-text">Welcome back, <br>
-                            Amazon 👋
+                            {{ session()->get('user')['company'] }} 👋
                         </h1>
                     </div>
                     <div class="col-lg-5 d-flex justify-content-center align-items-center">

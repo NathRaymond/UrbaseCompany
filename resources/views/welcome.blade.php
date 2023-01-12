@@ -25,7 +25,7 @@
             <h1 class="welcome-title pt-3 mb-1 mx-auto">Welcome Back</h1>
             <p class="desc-text py-0 mx-auto mb-4 text-center">To continue using our services, Log in to your account
             </p>
-             <form action="{{url('login')}}" id="login-form" method="post" onsubmit="showloader()">
+             <form action="{{url('loginpage')}}" id="login-form" method="post" onsubmit="showloader()">
                 @csrf
                 <label for="email" class="form-label d-block mb-0">Work Email Address</label>
                 <input type="email" class="mb-4 company-login-email-input" name="email" required>
@@ -47,7 +47,8 @@
                     </p>
                 </div>
                 <button type="submit" class="login_btn fw-light mb-4">
-                    Log In
+                    Log In &nbsp; <span class="spinner-border loader spinner-border-sm" id="thisLoader" role="status"
+                    aria-hidden="true" style="display:none"></span>
                 </button>
                 <div class="create_account_container text-center">
                     Not yet a member? <a href="{{ url('register') }}" class="create_account_container_link">Create

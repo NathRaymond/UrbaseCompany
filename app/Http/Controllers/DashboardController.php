@@ -3,77 +3,46 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Exception;
+use App\Library\IpAddress;
 
 class DashboardController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
-        
+        return view('company.company-dashboard');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function profiles(){
+        return view('company.profile');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function settings(){
+        return view('company.profile');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function notifications(Request $request){
+        $theUrl = config('app.api_test_base_url') . '/company/notification';
+        $token = session()->get('token');
+        $input['ipaddress'] = $request->ip();
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer $token",
+            'Accept' => 'application/json',
+
+        ])->post($theUrl, $input);
+        $value = $response->object();
+        dd($response->json(), $response->object());
+        if ($response->object() == null) {
+            return redirect('/logout');
+        }
+        $data['notifications'] = $value->data;
+        return view('company.notification', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

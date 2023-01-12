@@ -25,7 +25,7 @@ class AuthController extends Controller
         return view('verify');
     }
 
-    public function login(Request $request){
+    public function loginpage(Request $request){
        
         set_time_limit(500);
         //Login Logic Here....
@@ -37,7 +37,7 @@ class AuthController extends Controller
             'ipaddress'=>$request->ip()
         ]);  
         $returnedData = $response->json();
-        // dd($response->json(),$response->object());
+        // dd($response->json(),$response->body());
         if($returnedData == null){
             session(['email' => $request->email]);
             return redirect()->route('verify');
@@ -47,14 +47,10 @@ class AuthController extends Controller
         }
         else{
             $token = $returnedData['0']['token']['original']['access_token'];
-            // $talent = $returnedData['0']['workReady']['talent_id'];
             session(['token' => $token]);
-            // session(['talent' => $talent]);
-            $data['user'] = $returnedData['0']['token']['original'];
-            // $data['biodata'] = $returnedData['0']['biodata'];
+            $data['user'] = $returnedData['0']['token']['original']['company'];
             session(['user' => $data['user']]);
-            // session(['biodata' => $data['biodata']]);
-            return redirect()->route('dashboards');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -127,6 +123,11 @@ class AuthController extends Controller
         }
     }
 
+    public function login()
+    {
+      return view('welcome');
+    }
+
     public function logout()
     {
       Session::flush();
@@ -134,4 +135,5 @@ class AuthController extends Controller
   
       return redirect('/');
     }
+
 }
