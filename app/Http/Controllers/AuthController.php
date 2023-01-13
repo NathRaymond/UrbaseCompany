@@ -46,6 +46,7 @@ class AuthController extends Controller
             return redirect()->back()->withErrors([$response->json()['error']]);
         }
         else{
+            session(['email' => $request->email]);
             $token = $returnedData['0']['token']['original']['access_token'];
             session(['token' => $token]);
             $data['user'] = $returnedData['0']['token']['original']['company'];
