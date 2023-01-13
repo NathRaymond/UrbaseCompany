@@ -46,6 +46,28 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js'></script>
 
     <script src="{{ asset('assets/js/date-picker.js') }}"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if ($errors->any())
+            Swal.fire('Oops...', "{!! implode('', $errors->all('<p>:message</p>')) !!}", 'error')
+        @endif
+
+        @if (session()->has('message'))
+            Swal.fire(
+                'Success!',
+                "{{ session()->get('message') }}",
+                'success'
+            )
+        @endif
+        @if (session()->has('success'))
+            Swal.fire(
+                'Success!',
+                "{{ session()->get('success') }}",
+                'success'
+            )
+        @endif
+    </script>
     @yield('scripts')
 </body>
 

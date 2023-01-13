@@ -25,7 +25,7 @@
                 <div class="notification-time-container d-flex align-items-center mt-2">
                     <iconify-icon icon="ic:outline-access-time" class="fs-5"></iconify-icon>
                     <p class="ms-2 notification-time-text">{{$notification->created_at ?? '' }}
-                        {{ count(session()->get('notifications')) }}
+                        
                     </p>
                 </div>
             </div>

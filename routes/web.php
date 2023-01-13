@@ -56,7 +56,9 @@ Route::namespace('App\Http\Controllers')->group(function() {
         Route::get('billings-view-pool','CompanyController@billings_view_pool');
         Route::get('support','CompanyController@supports');
         Route::get('tour','CompanyController@tours');
-    
+
+        
+        
     });
 
     Route::namespace('App\Http\Controllers')->group(function() {
@@ -65,6 +67,8 @@ Route::namespace('App\Http\Controllers')->group(function() {
         Route::get('profile','DashboardController@profiles');
         Route::get('setting','DashboardController@settings');
         Route::get('dashboard','DashboardController@dashboard')->name('dashboard');
+        Route::post('updateinformation','DashboardController@update_information');
+        Route::post('updateabout','DashboardController@update_about');
     
     });
 // });
