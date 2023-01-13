@@ -55,6 +55,7 @@ Route::namespace('App\Http\Controllers')->group(function() {
         Route::get('billing','CompanyController@billings');
         Route::get('billings-view-pool','CompanyController@billings_view_pool');
         Route::get('support','CompanyController@supports');
+        Route::post('create-support','CompanyController@createSupport')->name('create-support');
         Route::get('tour','CompanyController@tours');
 
         
