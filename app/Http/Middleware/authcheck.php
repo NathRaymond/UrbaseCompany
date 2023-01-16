@@ -21,5 +21,6 @@ class authcheck
         if (!$token){
             return redirect('/');
         }
+        return $next($request);
     }
 }

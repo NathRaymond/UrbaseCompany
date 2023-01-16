@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Exception;
-use App\Library\IpAddress;
 
 class AuthController extends Controller
 {
@@ -25,7 +22,11 @@ class AuthController extends Controller
         return view('verify');
     }
 
-    public function loginpage(Request $request){
+    public function verifypasswordotp(){
+        return view('verifypasswordotp');
+    }
+
+    public function login(Request $request){
        
         set_time_limit(500);
         //Login Logic Here....
@@ -71,7 +72,6 @@ class AuthController extends Controller
             'confirm_password'=>$request->password, 
             'status'=> "Active",
             'ipaddress'=> $request->ip(),
-            'deleted'=>0,
         ]);
         $returnedData = $response->json();
         // dd($response->json(),$response->object());
@@ -124,10 +124,70 @@ class AuthController extends Controller
         }
     }
 
-    public function login()
-    {
-      return view('welcome');
+    public function forget_password(){
+        return view('company.company-forgot-password');
     }
+
+    public function create_new_password(){
+        return view('company.company-create-new-password');
+    }
+    
+    public function forgetpassword(Request $request){
+        $theUrl = config('app.api_test_base_url').'/company/forgot';
+        $response= Http::post($theUrl, [
+            'email'=>$request->email,
+            'ipaddress'=> $request->ip(),
+        ]);
+        $returnedData = $response->json();
+        if ($response->json()['statusCode'] == 400){
+            return redirect()->back()->withErrors([$response->json()['error']]);
+        }
+        else{
+            session(['email' => $request->email]);
+            return redirect()->route('verifypasswordotp');
+        }
+    }
+
+    public  function verifyforgottenOtp(Request $request){
+        $password = $request->value.''.$request->value1.''.$request->value2.''.$request->value3.''.$request->value4.''.$request->value5;
+        $theUrl = config('app.api_test_base_url').'/company/reset';
+        $response= Http::post($theUrl, [
+            'ipaddress'=> $request->ip(),
+            'email'=>$request->email,
+            'token'=>$password
+        ]);
+        $start = $response->json();
+        if($start['statusCode'] == 200){
+            return redirect()->route('create_new_password')
+            ->with('success', $start['success']);
+        }else{
+            return redirect()->back()->withErrors([$start['error']]);
+        }
+    }
+
+    public function create_password(Request $request){
+        $theUrl = config('app.api_test_base_url').'/company/updatepassword';
+        $this->validate($request, [
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        $response= Http::post($theUrl, [
+            'email'=>$request->email,
+            'password'=>$request->password, 
+            'confirm_password'=>$request->password, 
+            'ipaddress'=> $request->ip(),
+        ]);
+         $start = $response->json();
+        if ($response->json()['statusCode'] == 400){
+            return redirect()->back()->withErrors([$response->json()['error']]);
+        }
+        else{
+            return redirect()->route('logout
+            ');
+        }
+    }
+
+    
 
     public function logout()
     {

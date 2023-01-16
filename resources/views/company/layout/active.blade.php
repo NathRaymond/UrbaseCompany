@@ -5,6 +5,7 @@
         </iconify-icon>
         <p class="notification-number p-0 m-0 d-flex justify-content-center align-items-center fw-bold">
             1
+            {{--  {{ count($notifications) }}  --}}
         </p>
     </a>
     <a href="{{ url('notification') }}"
@@ -12,6 +13,7 @@
         <iconify-icon icon="codicon:bell-dot" class="fs-3" role="button"></iconify-icon>
         <p class="notification-number p-0 m-0 d-flex justify-content-center align-items-center fw-bold">
             2
+            {{--  {{ count($notifications) }}  --}}
         </p>
     </a>
     <div class="dropdown">

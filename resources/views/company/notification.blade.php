@@ -14,7 +14,7 @@
     <div class="dashboard-panel">
         <div class="dashboard-panel-nav d-flex justify-content-between align-items-end pt-1">
             <h2 class="fw-bold p-0 m-0">Notification</h2>
-           @include('company.layout.active2')
+           @include('company.layout.active')
         </div>
         @foreach ($notifications as $notification)
         <div class="notification-each-container d-flex align-items-start py-4 mt-4">
@@ -24,7 +24,7 @@
                     Please click to see details <span class="notification-badge rounded ms-2">NEW</span></p>
                 <div class="notification-time-container d-flex align-items-center mt-2">
                     <iconify-icon icon="ic:outline-access-time" class="fs-5"></iconify-icon>
-                    <p class="ms-2 notification-time-text">{{$notification->created_at ?? '' }}
+                    <p class="ms-2 notification-time-text">{{date('l:h:iA', strtotime($notification->created_at ?? ''))}}
                         
                     </p>
                 </div>

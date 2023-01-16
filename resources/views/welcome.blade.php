@@ -11,6 +11,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
+    <style>
+        .swal2-styled.swal2-confirm {
+            background-color: black !important;
+        }
+    </style>
 </head>
 <body>
     <div class="row company-login-container px-4 m-0">
@@ -25,7 +30,7 @@
             <h1 class="welcome-title pt-3 mb-1 mx-auto">Welcome Back</h1>
             <p class="desc-text py-0 mx-auto mb-4 text-center">To continue using our services, Log in to your account
             </p>
-             <form action="{{url('loginpage')}}" id="login-form" method="post" onsubmit="showloader()">
+             <form action="{{url('login')}}" id="login-form" method="post" onsubmit="showloader()">
                 @csrf
                 <label for="email" class="form-label d-block mb-0">Work Email Address</label>
                 <input type="email" class="mb-4 company-login-email-input" name="email" required>
@@ -43,7 +48,7 @@
                         <p class="p-0 m-0 forget_password_link">Remember me</p>
                     </div>
                     <p class="forget_password_text m-0 p-0">
-                        <a href="Company-forgot-password.html" class="forget_password_link">Forgot Password</a>
+                        <a href="{{ url('forget-password') }}" class="forget_password_link">Forgot Password</a>
                     </p>
                 </div>
                 <button type="submit" class="login_btn fw-light mb-4">

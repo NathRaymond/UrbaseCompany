@@ -22,14 +22,14 @@
                         </div>
                         <div class="w-100 py-4">
                             <div class="profile-pic-change-parent d-flex justify-content-between">
-                                <img style="border-radius: 130px; width:130px; height:110px"
+                                <img style="border-radius: 130px; width:130px; height:130px"
                                     @if ($avatar == '') src="{{ asset('assets/img/company-profile-pic-modal.png') }}" @else src="{{ $avatar }}" @endif
                                     alt="" class="img-fluid" id="bio-data-profile-image">
                                 &nbsp;
-                                <button class="profile-pic-upload-btn position-relative rounded" style="width: 500px;">
+                                <button class="profile-pic-upload-btn position-relative rounded" style="height: 50px; margin-top:+30px;">
                                     <input type="file" name="avatar"
                                         class="position-absolute top-0 start-0 w-100 h-50 opacity-0 profile-pic-upload-input">
-                                    Change profile picture
+                                   &nbsp; Change profile picture  &nbsp;
                                 </button>
                                 {{--  <div class="align-self-center">Change Profile Pic</div>  --}}
                             </div>

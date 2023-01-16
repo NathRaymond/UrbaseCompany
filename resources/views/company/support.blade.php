@@ -37,7 +37,7 @@
                             </textarea>
                             </div>
                         </div>
-                        <div class="modal-submit-post align-self-end p-2 px-4" role="button"> <button type="submit">Post</button> </div>
+                        <div style="float: right" > <button type="submit" class="modal-submit-post align-self-end p-2 px-4"  role="button">Post</button> </div>
                     </form>
                     
                 </div>
@@ -71,7 +71,7 @@
                             <iconify-icon icon="majesticons:ticket" class="fs-4"></iconify-icon>
                         </div>
                         <p class="ticket-title-text">Ticket {{$ticket->ticket_code}}</p>
-                        <p class="ticket-status-@if($ticket->status == "Pending")inactive @else active @endif">@if($ticket->status == "Pending")Pending @else Active @endif</p>
+                        <p style="width: 65px" class="ticket-status-@if($ticket->status == "Pending")inactive @else active @endif">@if($ticket->status == "Pending")Pending @else Active @endif</p>
                     </div>
 
                     <div class="ticket-day-text">{{date('l:h:iA', strtotime($ticket->created_at))}}</div>

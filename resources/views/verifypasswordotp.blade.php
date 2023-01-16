@@ -39,18 +39,16 @@
             <div class="confirmation-user-image-container d-flex justify-content-between align-items-center mb-3">
                 <img src="{{ url('assets/img/otp-aurbase-logo.png') }}" alt="" class="img-fluid">
             </div>
-            <h3 class="fw-semibold text-center">Kindly Enter the OTP to verify your Account</h3>
+            <h3 class="fw-semibold text-center">Kindly Enter the OTP to change your Password</h3>
             <p class="w-50 text-center fw-normal confirmation-message">
                 Please take a moment to check your email address. We sent an email with an OTP to <span
                     {{--  class="fw-bold">{{ session()->get('user')['email'] }}</span>. If you can’t find it in your Inbox, check your spam  --}} class="fw-bold">{{ session()->get('email') }}</span>. If you can’t find it in
-                your Inbox, check your spam
-                folder
-                folder.
+                your Inbox, check your spam folder.
             </p>
             <div class="otp-wrapper otp-event mt-3">
-                <form action="/verify_otp" method="post" onsubmit="showloader()">
+                <form action="/verify_forgottenotp" method="post" onsubmit="showloader()">
                     @csrf
-                    <input type="hidden" name="email" value={{ session()->get('email') }}>
+                    <input type="hidden" name="token" value={{ session()->get('token') }}>
                     <div class="otp-container">
                         <input type="tel" name="value" id="otp-number-input-1" class="otp-number-input"
                             maxlength="1" autocomplete="off">
@@ -75,7 +73,7 @@
                 <form action="{{ url('resend-otp') }}" method="post">
                     @csrf
                     <p class="mt-3 otp-time-counter fw-semibold">Didn’t receive an OTP? Click here to <a
-                            style="text-decoration: ; color:black" href="{{ url('resend-otp') }}"
+                            style="text-decoration: ; color:black" href="#"
                             id="resend">Resend</a> in <span class="text-warning"><span
                                 class="otp-minute">03</span><span class="otp-second">:00</span></span></p>
                 </form>

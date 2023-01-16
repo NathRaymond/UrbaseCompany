@@ -28,7 +28,7 @@
                             Password Changed Successfully
                         </p>
                         <div class="d-flex justify-content-center">
-                            <a href="settings.html" class="col-md-6 go-back-reset d-flex justify-content-center ">
+                            <a href="{{ url('setting') }}" class="col-md-6 go-back-reset d-flex justify-content-center ">
                                 Go back</a>
                         </div>
                     </div>
@@ -44,24 +44,27 @@
                 Type your previous password,new password and confirm new password
             </div>
         </div>
-        <div class="py-4 settings-form">
-            <label class="settings-label py-2">Old Password</label>
-            <div class="">
-                <input class="settings-input p-3" />
+        <form>
+            @csrf
+            <div class="py-4 settings-form">
+                <label class="settings-label py-2">Old Password</label>
+                <div class="">
+                    <input class="settings-input p-3" name="old_password" />
+                </div>
+                <label class="settings-label py-2 pt-4">New Password</label>
+                <div class="">
+                    <input class="settings-input p-3" name="password" />
+                </div>
+                <label class="settings-label py-2 pt-4">Confirm New Password</label>
+                <div class="">
+                    <input class="settings-input p-3" name="password_confirmation" />
+                </div>
+                <div class="reset-password-container py-4 d-flex justify-content-end" data-bs-toggle="modal"
+                    data-bs-target="#resetPassword">
+                    <div class="reset-password p-3 px-5" role="button">Reset Password</div>
+                </div>
             </div>
-            <label class="settings-label py-2 pt-4">New Password</label>
-            <div class="">
-                <input class="settings-input p-3" />
-            </div>
-            <label class="settings-label py-2 pt-4">Confirm New Password</label>
-            <div class="">
-                <input class="settings-input p-3" />
-            </div>
-            <div class="reset-password-container py-4 d-flex justify-content-end" data-bs-toggle="modal"
-                data-bs-target="#resetPassword">
-                <div class="reset-password p-3 px-5" role="button">Reset Password</div>
-            </div>
-        </div>
+        </form>
     </div>
 @endsection
 

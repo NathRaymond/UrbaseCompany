@@ -1,18 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Request;
 
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 class CompanyController extends Controller
 {
-    public function hires(){
-        return view('company.hire');
-    }
+    // public function hires(){
+    //     return view('company.hire');
+    // }
 
-    public function hiring_history(){
-        return view('company.hiring-history');
-    }
 
     public function talents(){
         return view('company.talent');
@@ -42,49 +41,34 @@ class CompanyController extends Controller
         return view('company.billings-view-pool');
     }
 
-    public function supports(Request $request){
+
+    public function tours(Request $request){
         $input['ipaddress']= $request->ip();
-        $input['email']= session()->get('email');
         $input['token']= $token = session()->get('token');
         $response = Http::withHeaders([
             'Authorization' => "Bearer $token",
             'Accept' => 'application/json',
-        ])->post('https://atarchgroup.capriquota.com/api/v1/company/tickets', $input);
+        ])->post('https://atarchgroup.capriquota.com/api/v1/company/profile/companytourstatus', $input);
         $apiResponse = $response->object();
+        $data['tour'] = $apiResponse->tour_onboard;
         if($apiResponse == null){
             return redirect()->route('logout');
         }
-        $data['tickets'] = $apiResponse->tickets;
-        // dd($data);
-        return view('company.support', $data);
-    }
-
-    public function createSupport(Request $request){
-        try {
-            $input = $request->all();
-            $input['ipaddress']= $request->ip();
-            $input['token']= $token = session()->get('token');
-            $response = Http::withHeaders([
-                'Authorization' => "Bearer $token",
-                'Accept' => 'application/json',
-            ])->post('https://atarchgroup.capriquota.com/api/v1/company/tickets/create', $input);
-            $apiResponse = $response->object();
-            if($apiResponse == null){
-                return redirect()->route('logout');
-            }
-            $status = $apiResponse->statusCode;
-            if($status == 200){
-                return redirect()->back()->with(["success" => "Support Created Successfully"]);
-            }else{
-                return redirect()->back()->with(["success" => "Try Again!"]);
-            }
-            // dd($apiResponse);
-        } catch (\Exception $exception) {
-            return redirect()->back()->withErrors(['exception' => $exception->getMessage()]);
-        }
-    }
-
-    public function tours(){
         return view('company.tour');
+    }
+
+    public function update_tour(Request $request)
+    {
+        $input['ipaddress'] = $request->ip();
+        $input['tour_onboard'] = intval($request->tour_onboard);
+        $token = session()->get('token');
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer $token",
+            'Accept' => 'application/json',
+        ])->post('https://atarchgroup.capriquota.com/api/v1/company/profile/updatecompanystatus', $input);
+        $start = $response->json();
+        if ($start['statusCode'] == 200) {
+            return redirect()->back()->with(['success' => "Video Watched"]);
+        }
     }
 }
