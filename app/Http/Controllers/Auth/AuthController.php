@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -38,7 +39,6 @@ class AuthController extends Controller
             'ipaddress'=>$request->ip()
         ]);  
         $returnedData = $response->json();
-        // dd($response->json(),$response->body());
         if($returnedData == null){
             session(['email' => $request->email]);
             return redirect()->route('verify');
@@ -58,7 +58,6 @@ class AuthController extends Controller
 
     public function reg(Request $request){ 
         $theUrl = config('app.api_test_base_url').'/company/register';
-        // $data = $request->all();
         $this->validate($request, [
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -74,7 +73,6 @@ class AuthController extends Controller
             'ipaddress'=> $request->ip(),
         ]);
         $returnedData = $response->json();
-        // dd($response->json(),$response->object());
         if ($response->json()['statusCode'] == 400){
             return redirect()->back()->withErrors([$response->json()['error']]);
         }
@@ -93,7 +91,6 @@ class AuthController extends Controller
             'token'=>$password
         ]);
         $start = $response->json();
-        // dd($response->json(),$response->object());
         if($start['statusCode'] == 200){
             return redirect()->route('logout')
             ->with('success', $start['success']);
@@ -158,7 +155,7 @@ class AuthController extends Controller
         ]);
         $start = $response->json();
         if($start['statusCode'] == 200){
-            return redirect()->route('create_new_password')
+            return redirect()->route('create-new-password')
             ->with('success', $start['success']);
         }else{
             return redirect()->back()->withErrors([$start['error']]);
@@ -166,28 +163,31 @@ class AuthController extends Controller
     }
 
     public function create_password(Request $request){
+        try{
         $theUrl = config('app.api_test_base_url').'/company/updatepassword';
-        $this->validate($request, [
-            'email' => ['required', 'string', 'email', 'max:255'],
+       
+        $validator = Validator::make($request->all(), [
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+       ]);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
         $response= Http::post($theUrl, [
-            'email'=>$request->email,
+            'email'=>session()->get('email'), 
             'password'=>$request->password, 
-            'confirm_password'=>$request->password, 
+            'confirm-password'=>$request->password_confirmation, 
             'ipaddress'=> $request->ip(),
         ]);
-         $start = $response->json();
-        if ($response->json()['statusCode'] == 400){
-            return redirect()->back()->withErrors([$response->json()['error']]);
+        $start = $response->json();
+        if($start['statusCode'] == 200){
+            return redirect()->route('logout')
+            ->with('success', $start['message']);
         }
-        else{
-            return redirect()->route('logout
-            ');
+       
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors(['exception' => $exception->getMessage()]);
         }
     }
-
-    
 
     public function logout()
     {

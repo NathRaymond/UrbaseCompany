@@ -19,7 +19,6 @@ class DashboardController extends Controller
         set_time_limit(500);
         $theUrl = config('app.api_test_base_url') . '/company/profile';
         $token = session()->get('token');
-        // dd($token);
         $response = Http::withHeaders([
             'Authorization' => "Bearer $token",
             'Accept' => 'application/json',
@@ -28,7 +27,6 @@ class DashboardController extends Controller
             return redirect('/logout');
         }
         $value = $response->object();
-        // dd($response->json(),$response->object());
         $data['companys'] = $value->company;
         $data['informations'] = $value->information;
         $data['abouts'] = $value->about;
@@ -71,12 +69,10 @@ class DashboardController extends Controller
 
         ])->post($theUrl, $input);
         $value = $response->object();
-        // dd($value);
         if ($response->object() == null) {
             return redirect('/logout');
         }
         $data['notifications'] = $value->notification;
-        // dd($data['notifications']);
         return view('company.notification', $data);
     }
 
@@ -91,7 +87,6 @@ class DashboardController extends Controller
             $input['location'] = $request->location;
             $input['address'] = $request->address;
             $input['ipaddress'] = $request->ip();
-            // dd($input);
             $token = session()->get('token');
             if ($request->file('avatar')) {
                 $response = Http::withHeaders([

@@ -22,7 +22,6 @@ class SupportController extends Controller
             return redirect()->route('logout');
         }
         $data['tickets'] = $apiResponse->tickets;
-        // dd($data);
         return view('company.support', $data);
     }
 
@@ -45,7 +44,6 @@ class SupportController extends Controller
             }else{
                 return redirect()->back()->with(["success" => "Try Again!"]);
             }
-            // dd($apiResponse);
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors(['exception' => $exception->getMessage()]);
         }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,7 @@
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 </head>
+
 <body>
     <div class="row company-login-container px-4 m-0">
         <div
@@ -26,13 +28,13 @@
             <p class="desc-text py-0 mx-auto mb-4 text-center">Kindly drop your work email for instructions on how to
                 retrieve your Password
             </p>
-            <form action="{{ url('saveforget-password') }}"  method="post" id="login-form" onsubmit="showloader()">
+            <form action="{{ url('saveforget-password') }}" method="post" id="login-form" onsubmit="showloader()">
                 @csrf
                 <label for="email" class="form-label d-block mb-0">Work Email Address</label>
                 <input type="email" name="email" class="mb-2 company-login-email-input" required>
                 <button type="submit" class="login_btn fw-light mb-4">
-                    Send Email &nbsp; <span class="spinner-border loader spinner-border-sm" id="thisLoader" role="status"
-                    aria-hidden="true" style="display:none"></span>
+                    Send Email &nbsp; <span class="spinner-border loader spinner-border-sm" id="thisLoader"
+                        role="status" aria-hidden="true" style="display:none"></span>
                 </button>
             </form>
         </div>
@@ -48,4 +50,5 @@
         }
     </script>
 </body>
+
 </html>

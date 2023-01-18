@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,11 +13,28 @@
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     <style>
+        .disable-link {
+            pointer-events: none;
+        }
+
         .swal2-styled.swal2-confirm {
             background-color: black !important;
         }
+
+        .swal2-icon.swal2-error [class^=swal2-x-mark-line] {
+            background-color: white !important;
+        }
+
+        .swal2-icon.swal2-error {
+            background-color: red !important;
+        }
+
+        .swal2-icon.swal2-error {
+            border-color: red !important;
+        }
     </style>
 </head>
+
 <body>
     <div class="row company-login-container px-4 m-0">
         <div
@@ -30,7 +48,7 @@
             <h1 class="welcome-title pt-3 mb-1 mx-auto">Welcome Back</h1>
             <p class="desc-text py-0 mx-auto mb-4 text-center">To continue using our services, Log in to your account
             </p>
-             <form action="{{url('login')}}" id="login-form" method="post" onsubmit="showloader()">
+            <form action="{{url('login')}}" id="login-form" method="post" onsubmit="showloader()">
                 @csrf
                 <label for="email" class="form-label d-block mb-0">Work Email Address</label>
                 <input type="email" class="mb-4 company-login-email-input" name="email" required>
@@ -42,18 +60,20 @@
                             onclick="showPassword()"></span>
                     </div>
                 </div>
+
                 <div class="forget_password_container d-flex justify-content-between align-items-center my-3">
                     <div class="remember_password_container d-flex align-items-center">
                         <input type="checkbox" class="remember_password_checkbox"> &nbsp;
                         <p class="p-0 m-0 forget_password_link">Remember me</p>
                     </div>
                     <p class="forget_password_text m-0 p-0">
-                        <a href="{{ url('forget-password') }}" class="forget_password_link">Forgot Password</a>
+                        <a href="{{ url('forget-password') }}" class="forget_password_link" style="color: black">Forgot
+                            Password</a>
                     </p>
                 </div>
                 <button type="submit" class="login_btn fw-light mb-4">
                     Log In &nbsp; <span class="spinner-border loader spinner-border-sm" id="thisLoader" role="status"
-                    aria-hidden="true" style="display:none"></span>
+                        aria-hidden="true" style="display:none"></span>
                 </button>
                 <div class="create_account_container text-center">
                     Not yet a member? <a href="{{ url('register') }}" class="create_account_container_link">Create
@@ -72,8 +92,7 @@
     </script>
     <script>
         @if ($errors->any())
-            //Swal.fire('Oops...', "{!! implode('', $errors->all('<p>:message</p>')) !!}", 'error')
-            Swal.fire("{!! implode('', $errors->all('<p>:message</p>')) !!}")
+            Swal.fire('Oops...', "{!! implode('', $errors->all('<p>:message</p>')) !!}", 'error')
         @endif
 
         @if (session()->has('message'))
@@ -98,4 +117,5 @@
         }
     </script>
 </body>
+
 </html>

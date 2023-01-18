@@ -24,7 +24,7 @@ Route::namespace('App\Http\Controllers\Auth')->group(function() {
     Route::post('verify_otp','AuthController@verifyOtp');
     Route::post('verify_forgottenotp','AuthController@verifyforgottenOtp');
     Route::get('forget-password','AuthController@forget_password');
-    Route::get('create-new-password','AuthController@create_new_password');
+    Route::get('create-new-password','AuthController@create_new_password')->name('create-new-password');
     Route::post('saveforget-password','AuthController@forgetpassword'); // Logic For Forget Password
     Route::post('create-password','AuthController@create_password'); // Logic For create new Password
 });

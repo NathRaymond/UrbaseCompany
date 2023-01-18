@@ -15,8 +15,21 @@
         .disable-link {
             pointer-events: none;
         }
+
         .swal2-styled.swal2-confirm {
             background-color: black !important;
+        }
+
+        .swal2-icon.swal2-error [class^=swal2-x-mark-line] {
+            background-color: white !important;
+        }
+
+        .swal2-icon.swal2-error {
+            background-color: red !important;
+        }
+
+        .swal2-icon.swal2-error {
+            border-color: red !important;
         }
     </style>
 </head>
@@ -41,8 +54,7 @@
             </div>
             <h3 class="fw-semibold text-center">Kindly Enter the OTP to verify your Account</h3>
             <p class="w-50 text-center fw-normal confirmation-message">
-                Please take a moment to check your email address. We sent an email with an OTP to <span
-                    {{--  class="fw-bold">{{ session()->get('user')['email'] }}</span>. If you can’t find it in your Inbox, check your spam  --}} class="fw-bold">{{ session()->get('email') }}</span>. If you can’t find it in
+                Please take a moment to check your email address. We sent an email with an OTP to <span class="fw-bold">{{ session()->get('email') }}</span>. If you can’t find it in
                 your Inbox, check your spam
                 folder
                 folder.
@@ -52,18 +64,18 @@
                     @csrf
                     <input type="hidden" name="email" value={{ session()->get('email') }}>
                     <div class="otp-container">
-                        <input type="tel" name="value" id="otp-number-input-1" class="otp-number-input"
-                            maxlength="1" autocomplete="off">
-                        <input type="tel" name="value1" id="otp-number-input-2" class="otp-number-input"
-                            maxlength="1" autocomplete="off">
-                        <input type="tel" name="value2" id="otp-number-input-3" class="otp-number-input"
-                            maxlength="1" autocomplete="off">
-                        <input type="tel" name="value3" id="otp-number-input-4" class="otp-number-input"
-                            maxlength="1" autocomplete="off">
-                        <input type="tel" name="value4" id="otp-number-input-5" class="otp-number-input"
-                            maxlength="1" autocomplete="off">
-                        <input type="tel" name="value5" id="otp-number-input-6" class="otp-number-input"
-                            maxlength="1" autocomplete="off">
+                        <input type="tel" name="value" id="otp-number-input-1" class="otp-number-input" maxlength="1"
+                            autocomplete="off">
+                        <input type="tel" name="value1" id="otp-number-input-2" class="otp-number-input" maxlength="1"
+                            autocomplete="off">
+                        <input type="tel" name="value2" id="otp-number-input-3" class="otp-number-input" maxlength="1"
+                            autocomplete="off">
+                        <input type="tel" name="value3" id="otp-number-input-4" class="otp-number-input" maxlength="1"
+                            autocomplete="off">
+                        <input type="tel" name="value4" id="otp-number-input-5" class="otp-number-input" maxlength="1"
+                            autocomplete="off">
+                        <input type="tel" name="value5" id="otp-number-input-6" class="otp-number-input" maxlength="1"
+                            autocomplete="off">
                     </div>
 
                     <a href="#" class="mt-5 otp-submit-parent-container d-block">
@@ -75,9 +87,9 @@
                 <form action="{{ url('resend-otp') }}" method="post">
                     @csrf
                     <p class="mt-3 otp-time-counter fw-semibold">Didn’t receive an OTP? Click here to <a
-                            style="text-decoration: ; color:black" href="{{ url('resend-otp') }}"
-                            id="resend">Resend</a> in <span class="text-warning"><span
-                                class="otp-minute">03</span><span class="otp-second">:00</span></span></p>
+                            style="text-decoration: ; color:black" href="{{ url('resend-otp') }}" id="resend">Resend</a>
+                        in <span class="text-warning"><span class="otp-minute">03</span><span
+                                class="otp-second">:00</span></span></p>
                 </form>
             </div>
         </div>

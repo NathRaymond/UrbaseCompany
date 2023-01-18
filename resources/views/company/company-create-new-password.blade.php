@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,26 +13,29 @@
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 </head>
+
 <body>
-    <div class="row company-login-container px-4 m-0">
-        <div
-            class=" col-md-5 mx-auto my-auto login-container-box d-flex flex-column justify-content-center align-items-start py-5 position-relative">
-            <a href="#">
-                <iconify-icon icon="fxemoji:cancellationx" class="cancel_login_icon"></iconify-icon>
-            </a>
-            <a href="#" class="mx-auto mt-4">
-                <img src="{{ asset('assets/img/logo.png') }}" alt="" class="logo mx-auto">
-            </a>
-            <h1 class="welcome-title pt-3 mb-1 mx-auto">Confirm Password</h1>
-            <p class="desc-text py-0 mx-auto mb-4 text-center">Create a new Password for your account
-            </p>
-            <form action="{{url('create-password')}}" method="POST" id="login-form" onsubmit="showloader()">
-                @csrf
+    <form action="{{ url('create-password') }}" method="post" id="login-form" onsubmit="showloader()">
+        @csrf
+        <div class="row company-login-container px-4 m-0">
+            <div
+                class=" col-md-5 mx-auto my-auto login-container-box d-flex flex-column justify-content-center align-items-start py-5 position-relative">
+                <a href="#">
+                    <iconify-icon icon="fxemoji:cancellationx" class="cancel_login_icon"></iconify-icon>
+                </a>
+                <a href="#" class="mx-auto mt-4">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="" class="logo mx-auto">
+                </a>
+                <h1 class="welcome-title pt-3 mb-1 mx-auto">Confirm Password</h1>
+                <p class="desc-text py-0 mx-auto mb-4 text-center">Create a new Password for your account
+                </p>
+
                 <label for="email" class="form-label d-block mb-0">New Password</label>
                 <input type="password" name="password" class="mb-4 company-login-email-input" required>
                 <label for="email" class="form-label d-block mb-0">Confirm New Password</label>
                 <div class="d-flex justify-content-center align-items-center company-login-email-input">
-                    <input type="password" name="password_confirmation" class="password-box" required id="company-password-box">
+                    <input type="password" name="password_confirmation" class="password-box" required
+                        id="company-password-box" required>
                     <div class="show-password-icon-container d-flex justify-content-center align-items-center">
                         <span class="iconify show-password-icon" data-icon="clarity:eye-hide-solid"
                             onclick="showPassword()"></span>
@@ -45,12 +49,13 @@
                 </div>
                 <button type="submit" class="login_btn fw-light mb-4">
                     Done &nbsp; <span class="spinner-border loader spinner-border-sm" id="thisLoader" role="status"
-                    aria-hidden="true" style="display:none"></span>
+                        aria-hidden="true" style="display:none"></span>
                 </button>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
     </script>
@@ -60,5 +65,26 @@
             loader.style.display = "inline-block";
         }
     </script>
+    <script>
+        @if ($errors->any())
+            Swal.fire('Oops...', "{!! implode('', $errors->all('<p>:message</p>')) !!}", 'error')
+        @endif
+
+        @if (session()->has('message'))
+            Swal.fire(
+                'Success!',
+                "{{ session()->get('message') }}",
+                'success'
+            )
+        @endif
+        @if (session()->has('success'))
+            Swal.fire(
+                'Success!',
+                "{{ session()->get('success') }}",
+                'success'
+            )
+        @endif
+    </script>
 </body>
+
 </html>
